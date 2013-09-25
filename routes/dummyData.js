@@ -39,9 +39,13 @@ exports.getAll = function(req,res){
     if(req.query.p !== undefined || req.query.ts !== undefined){
         if(req.query.ts === undefined){
             // Send error?
+            res.send(400,'Bad request');
         }
         if(req.query.p === undefined){
             // Send error?
+            // Not sure yet, might be removed
+            //  when timestamp is implemented
+            res.send(400,'Bad request');
         }
         // Both parameters passed
         //TODO: Validate pagenumber and timestamp
@@ -49,7 +53,7 @@ exports.getAll = function(req,res){
 
     if (req.query.sort !== undefined){
         if(req.query.sort.field === undefined || req.query.sort.asc === undefined){
-            // Send error
+            res.send(400,'Bad request');
         }
         console.log("req.query.sort.field is " + req.query.sort.field);
         console.log("req.query.sort.asc is " + req.query.sort.asc);
@@ -66,11 +70,6 @@ exports.getAll = function(req,res){
         res.send(data);
     }
     //TODO: Send error for unvalid request
-};
-
-exports.getById = function(req,res){
-    res.header('Access-Control-Allow-Origin', "*");
-    res.send(dummyData[req.params.id - 1]);
 };
 
 var sendPage = function (req, res, page, timestamp){

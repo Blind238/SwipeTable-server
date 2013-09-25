@@ -4,8 +4,6 @@ var express = require('express'),
 
 app.get('/api', data.getAll);
 
-app.get('/api/:id',data.getById);
-
 app.listen(process.env.PORT || 2223);
 
 //TODO: Handle sorting
