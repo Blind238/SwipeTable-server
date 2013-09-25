@@ -16,20 +16,21 @@ var sort_by = function(field, reverse, primer){
 // Sort by city, case-insensitive, A-Z
 //homes.sort(sort_by('city', false, function(a){return a.toUpperCase()}));
 
-var sortField = function(field, reverse){
-    if (isNaN(dummyData[0][field])){
+var sortField = function(data, field, reverse){
+    if (isNaN(data[0][field])){
         console.log("SORT: Was not a number");
-        dummyData.sort(sort_by(field, reverse, function(a){return a.toUpperCase()}));
+        data.sort(sort_by(field, reverse, function(a){return a.toUpperCase()}));
     }
     else{
         console.log("SORT: Was a number");
-        dummyData.sort(sort_by(field, reverse, parseInt));
+        data.sort(sort_by(field, reverse, parseInt));
     }
 };
 
 
 
 exports.getAll = function(req,res){
+    var data = dummyData.splice();
     if (req.query.sort!== undefined){
         console.log("req.query.sort is " + req.query.sort.field);
     }
@@ -52,17 +53,17 @@ exports.getAll = function(req,res){
         }
         console.log("req.query.sort.field is " + req.query.sort.field);
         console.log("req.query.sort.asc is " + req.query.sort.asc);
-        sortField(req.query.sort.field, (req.query.sort.asc === 'true'));
+        sortField(data, req.query.sort.field, (req.query.sort.asc === 'true'));
         res.header('Access-Control-Allow-Origin', "*");
-        res.send(dummyData);
+        res.send(data);
     }
 
     if(Object.keys(req.query).length === 0){
         // Valid fresh request
         console.log("req.query is {}/empty");
-        sortField('id', true);
+        sortField(data, 'id', true);
         res.header('Access-Control-Allow-Origin', "*");
-        res.send(dummyData);
+        res.send(data);
     }
     //TODO: Send error for unvalid request
 };
