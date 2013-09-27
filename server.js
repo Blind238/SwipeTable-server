@@ -1,6 +1,6 @@
 var express = require('express'),
     app = express(),
-    data = require('./routes/dummyData');
+    data = require('./routes/data');
 
 app.get('/api', data.getAll);
 
