@@ -81,21 +81,25 @@ var sortField = function(data, field, reverse){
     }
 };
 
-
-
 exports.getAll = function(req,res){
     var data = clone(dummyData);
     if (req.query.sort!== undefined){
         console.log("req.query.sort is " + req.query.sort.field);
     }
     console.log("req.query.p is " + req.query.p);
+    console.log("req.query.ps is " + req.query.ps);
     console.log("req.query.ts is " + req.query.ts);
     if(req.query.p !== undefined || req.query.ts !== undefined){
-        if(req.query.ts === undefined){
+        if(req.query.p !== undefined && req.query.ps !== undefined){
+            sendPage(req, res, data, req.query.p, req.query.ps);
+        }
+
+        else if(req.query.ts === undefined){
             // Send error?
             res.send(400,'Bad request');
         }
-        if(req.query.p === undefined){
+
+        else if(req.query.p === undefined){
             // Send error?
             // Not sure yet, might be removed
             //  when timestamp is implemented
@@ -126,8 +130,16 @@ exports.getAll = function(req,res){
     //TODO: Send error for unvalid request
 };
 
-var sendPage = function (req, res, page, timestamp){
-
+var sendPage = function (req, res, data, page, pageSize, timestamp){
+    sortField(data, 'id', true);
+    console.log('starting slice at' + (((page-1)*pageSize)));
+    console.log('ending slice at' + (page*pageSize));
+    var subset = data.slice(
+        ((page-1)*pageSize),
+        page*pageSize
+    );
+    res.header('Access-Control-Allow-Origin', "*");
+    res.send(subset);
 };
 
 
