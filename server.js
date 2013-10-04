@@ -1,6 +1,6 @@
 var express = require('express'),
     app = express(),
-    routes = require('./controllers/getRouter');
+    getRouter = require('./controllers/getRouter');
 
 app.use(express.static(__dirname + '/public'));
 
