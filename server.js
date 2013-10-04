@@ -1,10 +1,10 @@
 var express = require('express'),
     app = express(),
-    data = require('./routes/data');
+    routes = require('./controllers/getRouter');
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/api', data.getAll);
+app.get('/api', getRouter.getAll);
 
 app.listen(process.env.PORT || 8080);
 
