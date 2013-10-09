@@ -41,6 +41,10 @@ exports.getAll = function(req,res){
                 }
             }
             else{
+                if(req.query.p === undefined){
+                    // Missing page query, not according to spec
+                    res.send(400);
+                }
                 // No sorting, must be a page request
                 console.log("=Page request=");
                 controllers.page.getIt(req, res, req.query.p, req.query.ps, req.query.ts);
