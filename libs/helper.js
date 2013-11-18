@@ -81,7 +81,10 @@ var sortByField = function(data, field, reverse){
 exports.sortByField = sortByField;
 
 var getPage = function(data, page, pageSize, timestamp){
+    var result = {};
+    var pages;
     if (timestamp !== undefined){
+        result.timestamp = timestamp;
         data = data.filter( function(element){
             return (element.timestamp <= timestamp);
         });
@@ -98,13 +101,19 @@ var getPage = function(data, page, pageSize, timestamp){
 
     data = JSON.parse(data);
 
+    pages = Math.ceil(data.length / pageSize);
+
     console.log('starting slice at' + (((page-1)*pageSize)));
     console.log('ending slice at' + (page*pageSize));
     var subset = data.slice(
         ((page-1)*pageSize),
         page*pageSize
     );
-    return subset;
+
+    result.pages = pages;
+    result.data = subset;
+
+    return result;
 };
 
 exports.getPage = getPage;

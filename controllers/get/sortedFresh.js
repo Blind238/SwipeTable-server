@@ -6,11 +6,6 @@ var getIt = function(req, res, pageSize, timestamp, sortField, sortAsc){
 
     result = helper.getPage(data, 1, pageSize, timestamp);
 
-    result = {
-    	timestamp: timestamp,
-    	data: result
-    };
-
     res.header({
           'Access-Control-Allow-Origin': "*",
           'Content-Type': 'application/json'});

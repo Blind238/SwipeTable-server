@@ -6,10 +6,7 @@ var getIt = function(req, res, pageSize){
 
     result = helper.getPage(data, 1, pageSize);
 
-    result = {
-    	timestamp: 1383821045,
-    	data: result
-    };
+    result.timestamp = 1383821045 // Adding timestamp for the demo.
 
     res.header({
       'Access-Control-Allow-Origin': "*",
