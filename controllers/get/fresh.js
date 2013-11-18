@@ -6,6 +6,11 @@ var getIt = function(req, res, pageSize){
 
     result = helper.getPage(data, 1, pageSize);
 
+    result = {
+    	timestamp: 1383821045,
+    	data: result
+    };
+
     res.header({
       'Access-Control-Allow-Origin': "*",
       'Content-Type': 'application/json'});
