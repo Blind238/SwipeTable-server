@@ -4,7 +4,12 @@ var getIt = function(req, res, page, pageSize, timestamp, sortField, sortAsc){
     var data = helper.clone(helper.dummy);
     helper.sortByField(data, sortField, (sortAsc === 'true'));
 
-    result = helper.getPage(data, page, pageSize);
+    result = helper.getPage(data, page, pageSize, timestamp);
+
+		result = {
+    	timestamp: timestamp,
+    	data: result
+    };
 
     res.header({
           'Access-Control-Allow-Origin': "*",

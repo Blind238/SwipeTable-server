@@ -80,7 +80,24 @@ var sortByField = function(data, field, reverse){
 
 exports.sortByField = sortByField;
 
-var getPage = function(data, page, pageSize){
+var getPage = function(data, page, pageSize, timestamp){
+    if (timestamp !== undefined){
+        data = data.filter( function(element){
+            return (element.timestamp <= timestamp);
+        });
+    }
+
+    data = JSON.stringify(data, function(key, value){
+      
+        if (key === 'timestamp'){
+            return undefined;
+        }
+
+        return value;
+    });
+
+    data = JSON.parse(data);
+
     console.log('starting slice at' + (((page-1)*pageSize)));
     console.log('ending slice at' + (page*pageSize));
     var subset = data.slice(
@@ -88,18 +105,14 @@ var getPage = function(data, page, pageSize){
         page*pageSize
     );
     return subset;
-}
+};
 
 exports.getPage = getPage;
-
-var extractField = function(dataArray, field){
-    
-}
 
 var dummyData = [
     {
         "id": 1000,
-        "timestamp": "1383848211",
+        "timestamp": 1383848211,
         "some": 239012,
         "demo": "Auburn",
         "dummy": "72226",
@@ -107,7 +120,7 @@ var dummyData = [
     },
     {
         "id": 1001,
-        "timestamp": "1383797425",
+        "timestamp": 1383797425,
         "some": 238821,
         "demo": "Little Rock",
         "dummy": "72730",
@@ -115,7 +128,7 @@ var dummyData = [
     },
     {
         "id": 1002,
-        "timestamp": "1383777544",
+        "timestamp": 1383777544,
         "some": 238765,
         "demo": "Harrisburg",
         "dummy": "77848",
@@ -123,7 +136,7 @@ var dummyData = [
     },
     {
         "id": 1003,
-        "timestamp": "1383748798",
+        "timestamp": 1383748798,
         "some": 239314,
         "demo": "Provo",
         "dummy": "65243",
@@ -131,7 +144,7 @@ var dummyData = [
     },
     {
         "id": 1004,
-        "timestamp": "1383768291",
+        "timestamp": 1383768291,
         "some": 238974,
         "demo": "Jacksonville",
         "dummy": "16810",
@@ -139,7 +152,7 @@ var dummyData = [
     },
     {
         "id": 1005,
-        "timestamp": "1383860819",
+        "timestamp": 1383860819,
         "some": 239514,
         "demo": "Richmond",
         "dummy": "30028",
@@ -147,7 +160,7 @@ var dummyData = [
     },
     {
         "id": 1006,
-        "timestamp": "1383741045",
+        "timestamp": 1383741045,
         "some": 239503,
         "demo": "Norman",
         "dummy": "83920",
@@ -155,7 +168,7 @@ var dummyData = [
     },
     {
         "id": 1007,
-        "timestamp": "1383770778",
+        "timestamp": 1383770778,
         "some": 239052,
         "demo": "Fort Worth",
         "dummy": "10310",
@@ -163,7 +176,7 @@ var dummyData = [
     },
     {
         "id": 1008,
-        "timestamp": "1383775956",
+        "timestamp": 1383775956,
         "some": 238027,
         "demo": "Wyoming",
         "dummy": "72455",
@@ -171,7 +184,7 @@ var dummyData = [
     },
     {
         "id": 1009,
-        "timestamp": "1383761692",
+        "timestamp": 1383761692,
         "some": 238907,
         "demo": "Baton Rouge",
         "dummy": "39487",
@@ -179,7 +192,7 @@ var dummyData = [
     },
     {
         "id": 1010,
-        "timestamp": "1383835866",
+        "timestamp": 1383835866,
         "some": 239712,
         "demo": "Carson City",
         "dummy": "45325",
@@ -187,7 +200,7 @@ var dummyData = [
     },
     {
         "id": 1011,
-        "timestamp": "1383768794",
+        "timestamp": 1383768794,
         "some": 238799,
         "demo": "Augusta",
         "dummy": "67764",
@@ -195,7 +208,7 @@ var dummyData = [
     },
     {
         "id": 1012,
-        "timestamp": "1383796994",
+        "timestamp": 1383796994,
         "some": 238007,
         "demo": "Birmingham",
         "dummy": "36387",
@@ -203,7 +216,7 @@ var dummyData = [
     },
     {
         "id": 1013,
-        "timestamp": "1383793783",
+        "timestamp": 1383793783,
         "some": 238622,
         "demo": "Little Rock",
         "dummy": "72009",
@@ -211,7 +224,7 @@ var dummyData = [
     },
     {
         "id": 1014,
-        "timestamp": "1383862876",
+        "timestamp": 1383862876,
         "some": 239277,
         "demo": "Jackson",
         "dummy": "77923",
@@ -219,7 +232,7 @@ var dummyData = [
     },
     {
         "id": 1015,
-        "timestamp": "1383773744",
+        "timestamp": 1383773744,
         "some": 239282,
         "demo": "Las Vegas",
         "dummy": "11067",
@@ -227,7 +240,7 @@ var dummyData = [
     },
     {
         "id": 1016,
-        "timestamp": "1383835288",
+        "timestamp": 1383835288,
         "some": 239204,
         "demo": "Frederick",
         "dummy": "38039",
@@ -235,7 +248,7 @@ var dummyData = [
     },
     {
         "id": 1017,
-        "timestamp": "1383788896",
+        "timestamp": 1383788896,
         "some": 239189,
         "demo": "Birmingham",
         "dummy": "35621",
@@ -243,7 +256,7 @@ var dummyData = [
     },
     {
         "id": 1018,
-        "timestamp": "1383731291",
+        "timestamp": 1383731291,
         "some": 238833,
         "demo": "West Jordan",
         "dummy": "84895",
@@ -251,7 +264,7 @@ var dummyData = [
     },
     {
         "id": 1019,
-        "timestamp": "1383845333",
+        "timestamp": 1383845333,
         "some": 239952,
         "demo": "Columbia",
         "dummy": "60203",
@@ -259,7 +272,7 @@ var dummyData = [
     },
     {
         "id": 1020,
-        "timestamp": "1383764205",
+        "timestamp": 1383764205,
         "some": 238020,
         "demo": "Chandler",
         "dummy": "85911",
@@ -267,7 +280,7 @@ var dummyData = [
     },
     {
         "id": 1021,
-        "timestamp": "1383816509",
+        "timestamp": 1383816509,
         "some": 238667,
         "demo": "Knoxville",
         "dummy": "36804",
@@ -275,7 +288,7 @@ var dummyData = [
     },
     {
         "id": 1022,
-        "timestamp": "1383895553",
+        "timestamp": 1383895553,
         "some": 238702,
         "demo": "Montpelier",
         "dummy": "84950",
@@ -283,7 +296,7 @@ var dummyData = [
     },
     {
         "id": 1023,
-        "timestamp": "1383850731",
+        "timestamp": 1383850731,
         "some": 238104,
         "demo": "Bellevue",
         "dummy": "71078",
@@ -291,7 +304,7 @@ var dummyData = [
     },
     {
         "id": 1024,
-        "timestamp": "1383784561",
+        "timestamp": 1383784561,
         "some": 238435,
         "demo": "Cincinnati",
         "dummy": "18851",
@@ -299,7 +312,7 @@ var dummyData = [
     },
     {
         "id": 1025,
-        "timestamp": "1383833697",
+        "timestamp": 1383833697,
         "some": 238988,
         "demo": "Hillsboro",
         "dummy": "71369",
@@ -307,7 +320,7 @@ var dummyData = [
     },
     {
         "id": 1026,
-        "timestamp": "1383827224",
+        "timestamp": 1383827224,
         "some": 239519,
         "demo": "Orlando",
         "dummy": "62800",
@@ -315,7 +328,7 @@ var dummyData = [
     },
     {
         "id": 1027,
-        "timestamp": "1383771946",
+        "timestamp": 1383771946,
         "some": 238009,
         "demo": "Kapolei",
         "dummy": "44874",
@@ -323,7 +336,7 @@ var dummyData = [
     },
     {
         "id": 1028,
-        "timestamp": "1383747456",
+        "timestamp": 1383747456,
         "some": 239463,
         "demo": "Idaho Falls",
         "dummy": "13101",
@@ -331,7 +344,7 @@ var dummyData = [
     },
     {
         "id": 1029,
-        "timestamp": "1383755691",
+        "timestamp": 1383755691,
         "some": 238478,
         "demo": "Fairbanks",
         "dummy": "99899",
@@ -339,7 +352,7 @@ var dummyData = [
     },
     {
         "id": 1030,
-        "timestamp": "1383794647",
+        "timestamp": 1383794647,
         "some": 238056,
         "demo": "Boise",
         "dummy": "80864",
@@ -347,7 +360,7 @@ var dummyData = [
     },
     {
         "id": 1031,
-        "timestamp": "1383808613",
+        "timestamp": 1383808613,
         "some": 238549,
         "demo": "Lawton",
         "dummy": "38719",
@@ -355,7 +368,7 @@ var dummyData = [
     },
     {
         "id": 1032,
-        "timestamp": "1383856963",
+        "timestamp": 1383856963,
         "some": 238173,
         "demo": "Montgomery",
         "dummy": "35975",
@@ -363,7 +376,7 @@ var dummyData = [
     },
     {
         "id": 1033,
-        "timestamp": "1383855721",
+        "timestamp": 1383855721,
         "some": 238408,
         "demo": "Jacksonville",
         "dummy": "53051",
@@ -371,7 +384,7 @@ var dummyData = [
     },
     {
         "id": 1034,
-        "timestamp": "1383792023",
+        "timestamp": 1383792023,
         "some": 238371,
         "demo": "Topeka",
         "dummy": "63846",
@@ -379,7 +392,7 @@ var dummyData = [
     },
     {
         "id": 1035,
-        "timestamp": "1383727566",
+        "timestamp": 1383727566,
         "some": 239300,
         "demo": "Columbus",
         "dummy": "29544",
@@ -387,7 +400,7 @@ var dummyData = [
     },
     {
         "id": 1036,
-        "timestamp": "1383781092",
+        "timestamp": 1383781092,
         "some": 239951,
         "demo": "Norman",
         "dummy": "56061",
@@ -395,7 +408,7 @@ var dummyData = [
     },
     {
         "id": 1037,
-        "timestamp": "1383760681",
+        "timestamp": 1383760681,
         "some": 238899,
         "demo": "Columbus",
         "dummy": "91557",
@@ -403,7 +416,7 @@ var dummyData = [
     },
     {
         "id": 1038,
-        "timestamp": "1383784389",
+        "timestamp": 1383784389,
         "some": 239749,
         "demo": "Norman",
         "dummy": "13265",
@@ -411,7 +424,7 @@ var dummyData = [
     },
     {
         "id": 1039,
-        "timestamp": "1383745215",
+        "timestamp": 1383745215,
         "some": 238442,
         "demo": "Pocatello",
         "dummy": "22978",
@@ -419,7 +432,7 @@ var dummyData = [
     },
     {
         "id": 1040,
-        "timestamp": "1383765146",
+        "timestamp": 1383765146,
         "some": 239235,
         "demo": "Clarksville",
         "dummy": "32581",
@@ -427,7 +440,7 @@ var dummyData = [
     },
     {
         "id": 1041,
-        "timestamp": "1383750609",
+        "timestamp": 1383750609,
         "some": 239350,
         "demo": "Anchorage",
         "dummy": "99871",
@@ -435,7 +448,7 @@ var dummyData = [
     },
     {
         "id": 1042,
-        "timestamp": "1383790848",
+        "timestamp": 1383790848,
         "some": 239992,
         "demo": "Kailua",
         "dummy": "29491",
@@ -443,7 +456,7 @@ var dummyData = [
     },
     {
         "id": 1043,
-        "timestamp": "1383767348",
+        "timestamp": 1383767348,
         "some": 239551,
         "demo": "Kansas City",
         "dummy": "56029",
@@ -451,7 +464,7 @@ var dummyData = [
     },
     {
         "id": 1044,
-        "timestamp": "1383730822",
+        "timestamp": 1383730822,
         "some": 238497,
         "demo": "Baton Rouge",
         "dummy": "52094",
@@ -459,7 +472,7 @@ var dummyData = [
     },
     {
         "id": 1045,
-        "timestamp": "1383819406",
+        "timestamp": 1383819406,
         "some": 238388,
         "demo": "Allentown",
         "dummy": "62114",
@@ -467,7 +480,7 @@ var dummyData = [
     },
     {
         "id": 1046,
-        "timestamp": "1383740304",
+        "timestamp": 1383740304,
         "some": 238148,
         "demo": "Norfolk",
         "dummy": "42006",
@@ -475,7 +488,7 @@ var dummyData = [
     },
     {
         "id": 1047,
-        "timestamp": "1383788340",
+        "timestamp": 1383788340,
         "some": 239458,
         "demo": "Pocatello",
         "dummy": "37462",
@@ -483,7 +496,7 @@ var dummyData = [
     },
     {
         "id": 1048,
-        "timestamp": "1383776556",
+        "timestamp": 1383776556,
         "some": 239328,
         "demo": "Portland",
         "dummy": "98434",
@@ -491,7 +504,7 @@ var dummyData = [
     },
     {
         "id": 1049,
-        "timestamp": "1383731299",
+        "timestamp": 1383731299,
         "some": 239317,
         "demo": "Los Angeles",
         "dummy": "92477",
@@ -499,7 +512,7 @@ var dummyData = [
     },
     {
         "id": 1050,
-        "timestamp": "1383836640",
+        "timestamp": 1383836640,
         "some": 239391,
         "demo": "Hilo",
         "dummy": "58311",
@@ -507,7 +520,7 @@ var dummyData = [
     },
     {
         "id": 1051,
-        "timestamp": "1383849191",
+        "timestamp": 1383849191,
         "some": 238298,
         "demo": "Shreveport",
         "dummy": "35645",
@@ -515,7 +528,7 @@ var dummyData = [
     },
     {
         "id": 1052,
-        "timestamp": "1383855852",
+        "timestamp": 1383855852,
         "some": 239061,
         "demo": "Des Moines",
         "dummy": "53668",
@@ -523,7 +536,7 @@ var dummyData = [
     },
     {
         "id": 1053,
-        "timestamp": "1383777692",
+        "timestamp": 1383777692,
         "some": 239937,
         "demo": "Orlando",
         "dummy": "73418",
@@ -531,7 +544,7 @@ var dummyData = [
     },
     {
         "id": 1054,
-        "timestamp": "1383822450",
+        "timestamp": 1383822450,
         "some": 238542,
         "demo": "Cleveland",
         "dummy": "76118",
@@ -539,7 +552,7 @@ var dummyData = [
     },
     {
         "id": 1055,
-        "timestamp": "1383806634",
+        "timestamp": 1383806634,
         "some": 239571,
         "demo": "Madison",
         "dummy": "31236",
@@ -547,7 +560,7 @@ var dummyData = [
     },
     {
         "id": 1056,
-        "timestamp": "1383803838",
+        "timestamp": 1383803838,
         "some": 239177,
         "demo": "Allentown",
         "dummy": "93961",
@@ -555,7 +568,7 @@ var dummyData = [
     },
     {
         "id": 1057,
-        "timestamp": "1383876904",
+        "timestamp": 1383876904,
         "some": 238597,
         "demo": "Philadelphia",
         "dummy": "48174",
@@ -563,7 +576,7 @@ var dummyData = [
     },
     {
         "id": 1058,
-        "timestamp": "1383780846",
+        "timestamp": 1383780846,
         "some": 239517,
         "demo": "Stamford",
         "dummy": "73916",
@@ -571,7 +584,7 @@ var dummyData = [
     },
     {
         "id": 1059,
-        "timestamp": "1383874540",
+        "timestamp": 1383874540,
         "some": 238153,
         "demo": "Pocatello",
         "dummy": "99939",
@@ -579,7 +592,7 @@ var dummyData = [
     },
     {
         "id": 1060,
-        "timestamp": "1383758366",
+        "timestamp": 1383758366,
         "some": 238626,
         "demo": "Newark",
         "dummy": "66670",
@@ -587,7 +600,7 @@ var dummyData = [
     },
     {
         "id": 1061,
-        "timestamp": "1383739492",
+        "timestamp": 1383739492,
         "some": 238992,
         "demo": "Frankfort",
         "dummy": "78535",
@@ -595,7 +608,7 @@ var dummyData = [
     },
     {
         "id": 1062,
-        "timestamp": "1383824596",
+        "timestamp": 1383824596,
         "some": 239824,
         "demo": "Fayetteville",
         "dummy": "71500",
@@ -603,7 +616,7 @@ var dummyData = [
     },
     {
         "id": 1063,
-        "timestamp": "1383816106",
+        "timestamp": 1383816106,
         "some": 238995,
         "demo": "Rutland",
         "dummy": "47973",
@@ -611,7 +624,7 @@ var dummyData = [
     },
     {
         "id": 1064,
-        "timestamp": "1383843434",
+        "timestamp": 1383843434,
         "some": 239275,
         "demo": "Duluth",
         "dummy": "91598",
@@ -619,7 +632,7 @@ var dummyData = [
     },
     {
         "id": 1065,
-        "timestamp": "1383854475",
+        "timestamp": 1383854475,
         "some": 238709,
         "demo": "Bloomington",
         "dummy": "44597",
@@ -627,7 +640,7 @@ var dummyData = [
     },
     {
         "id": 1066,
-        "timestamp": "1383807840",
+        "timestamp": 1383807840,
         "some": 239244,
         "demo": "Bowling Green",
         "dummy": "18042",
@@ -635,7 +648,7 @@ var dummyData = [
     },
     {
         "id": 1067,
-        "timestamp": "1383872697",
+        "timestamp": 1383872697,
         "some": 239488,
         "demo": "Columbus",
         "dummy": "14274",
@@ -643,7 +656,7 @@ var dummyData = [
     },
     {
         "id": 1068,
-        "timestamp": "1383830337",
+        "timestamp": 1383830337,
         "some": 238810,
         "demo": "West Valley City",
         "dummy": "69353",
@@ -651,7 +664,7 @@ var dummyData = [
     },
     {
         "id": 1069,
-        "timestamp": "1383816757",
+        "timestamp": 1383816757,
         "some": 239583,
         "demo": "Laramie",
         "dummy": "78338",
@@ -659,7 +672,7 @@ var dummyData = [
     },
     {
         "id": 1070,
-        "timestamp": "1383797894",
+        "timestamp": 1383797894,
         "some": 238505,
         "demo": "Allentown",
         "dummy": "26426",
@@ -667,7 +680,7 @@ var dummyData = [
     },
     {
         "id": 1071,
-        "timestamp": "1383802296",
+        "timestamp": 1383802296,
         "some": 239971,
         "demo": "Provo",
         "dummy": "96813",
@@ -675,7 +688,7 @@ var dummyData = [
     },
     {
         "id": 1072,
-        "timestamp": "1383870643",
+        "timestamp": 1383870643,
         "some": 239500,
         "demo": "Louisville",
         "dummy": "39387",
@@ -683,7 +696,7 @@ var dummyData = [
     },
     {
         "id": 1073,
-        "timestamp": "1383815515",
+        "timestamp": 1383815515,
         "some": 238381,
         "demo": "Omaha",
         "dummy": "54395",
@@ -691,7 +704,7 @@ var dummyData = [
     },
     {
         "id": 1074,
-        "timestamp": "1383755956",
+        "timestamp": 1383755956,
         "some": 239925,
         "demo": "Metairie",
         "dummy": "53092",
@@ -699,7 +712,7 @@ var dummyData = [
     },
     {
         "id": 1075,
-        "timestamp": "1383863606",
+        "timestamp": 1383863606,
         "some": 239425,
         "demo": "Houston",
         "dummy": "59853",
@@ -707,7 +720,7 @@ var dummyData = [
     },
     {
         "id": 1076,
-        "timestamp": "1383831302",
+        "timestamp": 1383831302,
         "some": 239638,
         "demo": "Sterling Heights",
         "dummy": "24519",
@@ -715,7 +728,7 @@ var dummyData = [
     },
     {
         "id": 1077,
-        "timestamp": "1383741968",
+        "timestamp": 1383741968,
         "some": 238069,
         "demo": "Joliet",
         "dummy": "54409",
@@ -723,7 +736,7 @@ var dummyData = [
     },
     {
         "id": 1078,
-        "timestamp": "1383886749",
+        "timestamp": 1383886749,
         "some": 239523,
         "demo": "Louisville",
         "dummy": "86481",
@@ -731,7 +744,7 @@ var dummyData = [
     },
     {
         "id": 1079,
-        "timestamp": "1383856874",
+        "timestamp": 1383856874,
         "some": 238944,
         "demo": "College",
         "dummy": "99907",
@@ -739,7 +752,7 @@ var dummyData = [
     },
     {
         "id": 1080,
-        "timestamp": "1383859842",
+        "timestamp": 1383859842,
         "some": 238804,
         "demo": "Nampa",
         "dummy": "74229",
@@ -747,7 +760,7 @@ var dummyData = [
     },
     {
         "id": 1081,
-        "timestamp": "1383853161",
+        "timestamp": 1383853161,
         "some": 239462,
         "demo": "Montgomery",
         "dummy": "35449",
@@ -755,7 +768,7 @@ var dummyData = [
     },
     {
         "id": 1082,
-        "timestamp": "1383735698",
+        "timestamp": 1383735698,
         "some": 238160,
         "demo": "New Orleans",
         "dummy": "55820",
@@ -763,7 +776,7 @@ var dummyData = [
     },
     {
         "id": 1083,
-        "timestamp": "1383741996",
+        "timestamp": 1383741996,
         "some": 239102,
         "demo": "Great Falls",
         "dummy": "67393",
@@ -771,7 +784,7 @@ var dummyData = [
     },
     {
         "id": 1084,
-        "timestamp": "1383827107",
+        "timestamp": 1383827107,
         "some": 239538,
         "demo": "Springdale",
         "dummy": "71668",
@@ -779,7 +792,7 @@ var dummyData = [
     },
     {
         "id": 1085,
-        "timestamp": "1383843304",
+        "timestamp": 1383843304,
         "some": 239563,
         "demo": "Kenosha",
         "dummy": "23537",
@@ -787,7 +800,7 @@ var dummyData = [
     },
     {
         "id": 1086,
-        "timestamp": "1383885012",
+        "timestamp": 1383885012,
         "some": 238096,
         "demo": "Columbus",
         "dummy": "82118",
@@ -795,7 +808,7 @@ var dummyData = [
     },
     {
         "id": 1087,
-        "timestamp": "1383782753",
+        "timestamp": 1383782753,
         "some": 239813,
         "demo": "Lewiston",
         "dummy": "30990",
@@ -803,7 +816,7 @@ var dummyData = [
     },
     {
         "id": 1088,
-        "timestamp": "1383896426",
+        "timestamp": 1383896426,
         "some": 238692,
         "demo": "Los Angeles",
         "dummy": "95419",
@@ -811,7 +824,7 @@ var dummyData = [
     },
     {
         "id": 1089,
-        "timestamp": "1383790834",
+        "timestamp": 1383790834,
         "some": 239582,
         "demo": "Green Bay",
         "dummy": "75574",
@@ -819,7 +832,7 @@ var dummyData = [
     },
     {
         "id": 1090,
-        "timestamp": "1383760219",
+        "timestamp": 1383760219,
         "some": 239578,
         "demo": "Lakewood",
         "dummy": "80313",
@@ -827,7 +840,7 @@ var dummyData = [
     },
     {
         "id": 1091,
-        "timestamp": "1383802367",
+        "timestamp": 1383802367,
         "some": 238824,
         "demo": "Casper",
         "dummy": "58062",
@@ -835,7 +848,7 @@ var dummyData = [
     },
     {
         "id": 1092,
-        "timestamp": "1383726299",
+        "timestamp": 1383726299,
         "some": 239593,
         "demo": "Richmond",
         "dummy": "90057",
@@ -843,7 +856,7 @@ var dummyData = [
     },
     {
         "id": 1093,
-        "timestamp": "1383858576",
+        "timestamp": 1383858576,
         "some": 239244,
         "demo": "Baltimore",
         "dummy": "84643",
@@ -851,7 +864,7 @@ var dummyData = [
     },
     {
         "id": 1094,
-        "timestamp": "1383800257",
+        "timestamp": 1383800257,
         "some": 239488,
         "demo": "Baltimore",
         "dummy": "36361",
@@ -859,7 +872,7 @@ var dummyData = [
     },
     {
         "id": 1095,
-        "timestamp": "1383804760",
+        "timestamp": 1383804760,
         "some": 238514,
         "demo": "Bowling Green",
         "dummy": "59829",
@@ -867,7 +880,7 @@ var dummyData = [
     },
     {
         "id": 1096,
-        "timestamp": "1383753806",
+        "timestamp": 1383753806,
         "some": 239827,
         "demo": "Austin",
         "dummy": "95193",
@@ -875,7 +888,7 @@ var dummyData = [
     },
     {
         "id": 1097,
-        "timestamp": "1383738213",
+        "timestamp": 1383738213,
         "some": 239210,
         "demo": "Olathe",
         "dummy": "47449",
@@ -883,7 +896,7 @@ var dummyData = [
     },
     {
         "id": 1098,
-        "timestamp": "1383774422",
+        "timestamp": 1383774422,
         "some": 238275,
         "demo": "Tucson",
         "dummy": "85169",
@@ -891,7 +904,7 @@ var dummyData = [
     },
     {
         "id": 1099,
-        "timestamp": "1383795340",
+        "timestamp": 1383795340,
         "some": 238312,
         "demo": "Portland",
         "dummy": "45504",
