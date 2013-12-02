@@ -82,6 +82,8 @@ exports.sortByField = sortByField;
 
 var getPage = function(data, page, pageSize, timestamp){
     var result = {};
+    var totalItems = data.length;
+    var newItems;
     var pages;
     if (timestamp !== undefined){
         result.timestamp = timestamp;
@@ -89,6 +91,11 @@ var getPage = function(data, page, pageSize, timestamp){
             return (element.timestamp <= timestamp);
         });
     }
+    else{
+        result.timestamp = Date.now();
+    }
+
+    newItems = totalItems - data.length;
 
     data = JSON.stringify(data, function(key, value){
       
@@ -110,6 +117,7 @@ var getPage = function(data, page, pageSize, timestamp){
         page*pageSize
     );
 
+    result.newItems = newItems;
     result.pages = pages;
     result.data = subset;
 
