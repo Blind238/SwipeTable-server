@@ -67,10 +67,21 @@ var clone = function(src) {
 
 exports.clone = clone;
 
+var getData = function(){
+    return clone(dummyData);
+};
+
+exports.getData = getData;
+
 var sortByField = function(data, field, reverse){
     if (isNaN(data[0][field])){
         console.log("SORT: Was not a number");
-        data.sort(sortBy(field, reverse, function(a){return a.toUpperCase()}));
+        data.sort(sortBy(field, reverse, function(a){
+            if(a !== undefined){
+                return a.toUpperCase();
+            }
+            return a;
+        }));
     }
     else{
         console.log("SORT: Was a number");

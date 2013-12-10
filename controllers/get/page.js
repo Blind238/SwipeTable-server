@@ -1,7 +1,7 @@
 var helper = require("../../libs/helper");
 
 var getIt = function(req, res, page, pageSize, timestamp){
-    var data = helper.clone(helper.dummy);
+    var data = helper.getData();
     helper.sortByField(data, 'id', true);
 
     result = helper.getPage(data, page, pageSize, timestamp);

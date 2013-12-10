@@ -1,7 +1,7 @@
 var helper = require("../../libs/helper");
 
 var getIt = function(req, res, pageSize){
-    var data = helper.clone(helper.dummy),
+    var data = helper.getData(),
     		result;
     helper.sortByField(data, 'id', true);
 
